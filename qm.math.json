@@ -1,0 +1,36 @@
+{
+	"name": "qm.math",
+	"title": "qmMath",
+	"description": "A svg math editor.",
+	"keywords": [
+		"jquery",
+		"svg",
+		"editor"
+	],
+	"version": "0.1",
+	"author": {
+		"name": "Edmundo Mizutani",
+		"email": "edhowler@gmail.com",
+		"url": "https://github.com/edhowler"
+	},
+	"maintainers": [
+		{
+			"name": "Edmundo Mizutani",
+			"email": "edhowler@gmail.com",
+			"url": "https://github.com/edhowler"
+		}
+	],
+	"licenses": [
+		{
+			"type": "MIT",
+			"url": "http://zenorocha.mit-license.org/"
+		}
+	],
+	"bugs": "https://github.com/edhowler/qm.math/issues",
+	"homepage": "http://qmmath.com",
+	"docs": "https://github.com/edhowler/qm.math#readme",
+	"download": "https://github.com/edhowler/qm.math/archive/master.zip",
+	"dependencies": {
+		"jquery": ">=1.4"
+	}
+}

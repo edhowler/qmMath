@@ -1,12 +1,12 @@
 {
-	"name": "jquery-boilerplate",
-	"version": "3.4.0",
-	"homepage": "http://jqueryboilerplate.com",
+	"name": "qm-math",
+	"version": "0.1",
+	"homepage": "http://qmmath.com",
 	"authors": [
-		"Zeno Rocha <hi@zenorocha.com>"
+		"Edmundo <edhowler@gmail.com>"
 	],
-	"description": "A jump-start for jQuery plugins development.",
-	"main": "src/jquery.boilerplate.js",
+	"description": "A svg math editor.",
+	"main": "src/qm.math.js",
 	"keywords": [
 		"jquery",
 		"plugin",
