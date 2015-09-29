@@ -1,122 +1,66 @@
-# qmMath
+# [<img src="https://khan.github.io/KaTeX/katex-logo.svg" width="130" alt="KaTeX">](https://khan.github.io/KaTeX/) [![Build Status](https://travis-ci.org/Khan/KaTeX.svg?branch=master)](https://travis-ci.org/Khan/KaTeX)
 
-### A svg math editor
+KaTeX is a fast, easy-to-use JavaScript library for TeX math rendering on the web.
 
-A math editor
+ * **Fast:** KaTeX renders its math synchronously and doesn't need to reflow the page. See how it compares to a competitor in [this speed test](http://jsperf.com/katex-vs-mathjax/).
+ * **Print quality:** KaTeX’s layout is based on Donald Knuth’s TeX, the gold standard for math typesetting.
+ * **Self contained:** KaTeX has no dependencies and can easily be bundled with your website resources.
+ * **Server side rendering:** KaTeX produces the same output regardless of browser or environment, so you can pre-render expressions using Node.js and send them as plain HTML.
+
+KaTeX supports all major browsers, including Chrome, Safari, Firefox, Opera, and IE 8 - IE 11.  A list of supported  commands can be on the [wiki](https://github.com/Khan/KaTeX/wiki/Function-Support-in-KaTeX).
 
 ## Usage
 
-1. Include jQuery:
+You can [download KaTeX](https://github.com/khan/katex/releases) and host it on your server or include the `katex.min.js` and `katex.min.css` files on your page directly from a CDN:
 
-	```html
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-	```
-
-2. Include plugin's code:
-
-	```html
-	<script src="dist/qm.math.min.js"></script>
-	```
-
-3. Call the plugin:
-
-	```javascript
-	$("svg").qmMath();
-	```
-
-## Structure
-
-The basic structure of the project is given in the following way:
-
-```
-├── demo/
-│   └── index.html
-├── dist/
-│   ├── qm.math.js
-│   └── qm.math.min.js
-├── src/
-│	├── css/
-│	│   └── qm.math.css
-│	├── font/
-│	│   └── math fonts
-│   └── qm.math.js
-├── .editorconfig
-├── .gitignore
-├── .jshintrc
-├── .travis.yml
-├── qm.math.json
-├── Gruntfile.js
-└── package.json
+```html
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.js"></script>
 ```
 
-#### [demo/](https://github.com/edhowler/qm.Math/tree/master/demo)
+#### In-browser rendering
 
-Contains a simple HTML file to demonstrate qmMath.
+Call `katex.render` with a TeX expression and a DOM element to render into:
 
-#### [dist/](https://github.com/edhowler/qm.Math/tree/master/dist)
+```js
+katex.render("c = \\pm\\sqrt{a^2 + b^2}", element);
+```
 
-This is where the generated files are stored once Grunt runs.
+If KaTeX can't parse the expression, it throws a `katex.ParseError` error.
 
-#### [src/](https://github.com/edhowler/qm.Math/tree/master/src)
+#### Server side rendering or rendering to a string
 
-Contains the files responsible for your plugin, you can choose between JavaScript or CoffeeScript.
+To generate HTML on the server or to generate an HTML string of the rendered math, you can use `katex.renderToString`:
 
-#### [.editorconfig](https://github.com/edhowler/qm.Math/tree/master/.editorconfig)
+```js
+var html = katex.renderToString("c = \\pm\\sqrt{a^2 + b^2}");
+// '<span class="katex">...</span>'
+```
 
-This file is for unifying the coding style for different editors and IDEs.
+Make sure to include the CSS and font files, but there is no need to include the JavaScript. Like `render`, `renderToString` throws if it can't parse the expression.
 
-> Check [editorconfig.org](http://editorconfig.org) if you haven't heard about this project yet.
+#### Rendering options
 
-#### [.gitignore](https://github.com/edhowler/qm.Math/tree/master/.gitignore)
+You can provide an object of options as the last argument to `katex.render` and `katex.renderToString`. Available options are:
 
-List of files that we don't want Git to track.
+- `displayMode`: `boolean`. If `true` the math will be rendered in display mode, which will put the math in display style (so `\int` and `\sum` are large, for example), and will center the math on the page on its own line. If `false` the math will be rendered in inline mode. (default: `false`)
+- `throwOnError`: `boolean`. If `true`, KaTeX will throw a `ParseError` when it encounters an unsupported command. If `false`, KaTeX will render the unsupported command as text in the color given by `errorColor`. (default: `true`)
+- `errorColor`: `string`. A color string given in the format `"#XXX"` or `"#XXXXXX"`. This option determines the color which unsupported commands are rendered in. (default: `#cc0000`)
 
-> Check this [Git Ignoring Files Guide](https://help.github.com/articles/ignoring-files) for more details.
+For example:
 
-#### [.jshintrc](https://github.com/edhowler/qm.Math/tree/master/.jshintrc)
+```js
+katex.render("c = \\pm\\sqrt{a^2 + b^2}", element, { displayMode: true });
+```
 
-List of rules used by JSHint to detect errors and potential problems in JavaScript.
+#### Automatic rendering of math on a page
 
-> Check [jshint.com](http://jshint.com/about/) if you haven't heard about this project yet.
-
-#### [.travis.yml](https://github.com/edhowler/qm.Math/tree/master/.travis.yml)
-
-Definitions for continous integration using Travis.
-
-> Check [travis-ci.org](http://about.travis-ci.org/) if you haven't heard about this project yet.
-
-#### [boilerplate.jquery.json](https://github.com/edhowler/qm.Math/tree/master/boilerplate.jquery.json)
-
-Package manifest file used to publish plugins in jQuery Plugin Registry.
-
-> Check this [Package Manifest Guide](http://plugins.jquery.com/docs/package-manifest/) for more details.
-
-#### [Gruntfile.js](https://github.com/edhowler/qm.Math/tree/master/Gruntfile.js)
-
-Contains all automated tasks using Grunt.
-
-> Check [gruntjs.com](http://gruntjs.com) if you haven't heard about this project yet.
-
-#### [package.json](https://github.com/edhowler/qm.Math/tree/master/package.json)
-
-Specify all dependencies loaded via Node.JS.
-
-> Check [NPM](https://npmjs.org/doc/json.html) for more details.
-
-## Guides
-
-#### Later
-
-Blabla
+Math on the page can be automatically rendered using the auto-render extension. See [the Auto-render README](contrib/auto-render/README.md) for more information.
 
 ## Contributing
 
-Check [CONTRIBUTING.md](https://github.com/edhowler/qm.Math/blob/master/CONTRIBUTING.md) for more information.
-
-## History
-
-Check [Releases](https://github.com/jquery-boilerplate/jquery-boilerplate/releases) for detailed changelog.
+See [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## License
 
-[MIT License](http://zenorocha.mit-license.org/) © Zeno Rocha
+KaTeX is licensed under the [MIT License](http://opensource.org/licenses/MIT).
